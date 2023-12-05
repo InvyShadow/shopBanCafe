@@ -44,8 +44,8 @@
                     <tr>
 
 
-                        <td>{{$order_by_id[1]->customer_name}}</td>
-                        <td>{{$order_by_id[1]->customer_phone}}</td>
+                        <td>{{$order_by_id[0]->customer_name}}</td>
+                        <td>{{$order_by_id[0]->customer_phone}}</td>
 
 
                     </tr>
@@ -101,9 +101,9 @@
                     <tr>
 
 
-                        <td>{{$order_by_id[1]->shipping_name}}</td>
-                        <td>{{$order_by_id[1]->shipping_address}}</td>
-                        <td>{{$order_by_id[1]->shipping_phone}}</td>
+                        <td>{{$order_by_id[0]->shipping_name}}</td>
+                        <td>{{$order_by_id[0]->shipping_address}}</td>
+                        <td>{{$order_by_id[0]->shipping_phone}}</td>
 
 
                     </tr>
@@ -149,6 +149,7 @@
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Giá</th>
+                        <th>Mã giảm giá</th>
                         <th>Tổng tiền</th>
                         {{--                        <th></th>--}}
                         <th style="width:30px;"></th>
@@ -161,6 +162,7 @@
                         <td>{{$v_content->product_name}}</td>
                         <td>{{$v_content->product_sales_quantity}}</td>
                         <td>{{$v_content->product_price}}</td>
+                        <td>{{$v_content->coupon_code}}</td>
                         <td>{{$v_content->product_price*$v_content->product_sales_quantity}}</td>
 
                     </tr>

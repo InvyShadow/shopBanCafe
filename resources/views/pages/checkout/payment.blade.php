@@ -80,12 +80,15 @@
                                 <tr>
                                     <td><input type="submit" value="Cập nhật" name="update_qty"
                                                class="check_out btn btn-default btn-sm"></td>
-                                    <td><a class="btn btn-default check_out"
-                                           href="{{URL::to('/delete-all-product-cart')}}">Xoá
-                                            tất cả</a></td>
                                     <td>
-                                        <a class="btn btn-default check_out" href="{{URL::to('login-checkout')}}">Thanh
-                                            toán</a></td>
+                                        {{--                                        <a class="btn btn-default check_out"--}}
+                                        {{--                                                href="{{URL::to('/delete-all-product-cart')}}">Xoá--}}
+                                        {{--                                            tất cả</a>--}}
+                                    </td>
+                                    <td>
+                                        {{--                                        <a class="btn btn-default check_out" href="{{URL::to('login-checkout')}}">Thanh--}}
+                                        {{--                                            toán</a>--}}
+                                    </td>
 
                                     <td>
                                         <ul>
@@ -118,6 +121,7 @@
                                                 </p>
                                                 <li><p>Tiền sau khi
                                                         giảm: {{number_format($total_coupon, 0 , ',' , '.')}}</p></li>
+
                                             @endif
                                             @endforeach
 

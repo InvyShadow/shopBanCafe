@@ -41,7 +41,7 @@ Route::get('unactive-category-product/{category_product_id}', [CategoryProduct::
 Route::get('active-category-product/{category_product_id}', [CategoryProduct::class, 'active_category_product']);
 Route::post('save-category-product', [CategoryProduct::class, 'save_category_product']);
 
-// Product
+// Productf
 
 Route::get('add-product', [ProductController::class, 'add_product']);
 Route::get('edit-product/{product_id}', [ProductController::class, 'edit_product']);

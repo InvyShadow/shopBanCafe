@@ -87,7 +87,7 @@
                                 <td><a class="btn btn-default check_out" href="{{URL::to('/delete-all-product-cart')}}">Xoá
                                         tất cả</a></td>
                                 <td>
-                                    <a class="btn btn-default check_out" href="{{URL::to('login-checkout')}}">Thanh
+                                    <a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh
                                         toán</a></td>
 
                                 <td>
@@ -122,6 +122,7 @@
                                                     giảm: {{number_format($total_coupon, 0 , ',' , '.')}}</p></li>
                                                 <?php
                                                 Session::put('total', $total_coupon);
+                                                $total = $total_coupon
                                                 ?>
 
                                         @endif

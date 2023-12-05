@@ -26,6 +26,9 @@ class CheckoutController extends Controller
     public function login_checkout()
     {
         $cate_product = DB::table('tbt_category_product',)->orderBy('category_id', 'desc')->get();
+        if (Session::get('customer_name')) {
+            return view('pages.checkout.checkout')->with('category', $cate_product);
+        }
         return view('pages.checkout.login_checkout')->with('category', $cate_product);
     }
 
@@ -112,11 +115,18 @@ class CheckoutController extends Controller
 
 //        Insert order
         $order_data = array();
+
         $order_data['customer_id'] = Session::get('customer_id');
         $order_data['shipping_id'] = Session::get('shipping_id');
         $order_data['payment_id'] = $payment_id;
         $order_data['order_total'] = Session::get('total');
         $order_data['order_status'] = 'Đang chờ xử lí';
+        if (Session::get('coupon')) {
+            foreach (Session::get('coupon') as $key => $coupon_code)
+                $order_data['coupon_code'] = $coupon_code['coupon_code'];
+        } else {
+            $order_data['coupon_code'] = 'No';
+        }
         $order_id = DB::table('tbl_order')->insertGetId($order_data);
 
 //        Insert order detail

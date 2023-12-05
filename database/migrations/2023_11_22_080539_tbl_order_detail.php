@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->float('product_price');
             $table->integer('product_sales_quantity');
+            $table->string('coupon_code');
             $table->timestamps();
         });
     }
