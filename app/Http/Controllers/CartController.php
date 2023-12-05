@@ -40,7 +40,6 @@ class CartController extends Controller
                         'product_name' => $product['product_name'],
                         'product_id' => $product['product_id'],
                         'product_image' => $product['product_image'],
-                        'product_quantity' => $product['product_quantity'],
                         'product_qty' => $product['product_qty'] + $data['cart_product_qty'],
                         'product_price' => $product['product_price']
                     );
@@ -70,6 +69,10 @@ class CartController extends Controller
         }
         Session::put('cart', $cart);
         Session::save();
+
+//        if($data['cart_product_product_detail'=="true"]) {
+//            return \redirect("/gio-hang");
+//        }
     }
 
     public function gio_hang(Request $request)

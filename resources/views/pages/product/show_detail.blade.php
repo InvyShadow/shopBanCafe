@@ -45,13 +45,17 @@
                     <img src="{{URL::to('public/images/new.jpg')}}" class="newarrival" alt=""/>
                     <h2>{{$value->product_name}}</h2>
                     <img src="{{URL::to('public/images/rating.png')}}" alt=""/>
-                    <form action="{{URL::to('/save-cart')}}" method="post">
+                    <form action="{{URL::to('/add-cart-ajax')}}" method="post">
                         {{ csrf_field() }}
                         <span>
 									<span>{{number_format($value->product_price).' VNĐ'}}</span>
 									<label>Số lượng:</label>
-									<input name="quantity" type="number" min="1" value="1"/>
-                                    <input name="product_id_hidden" type="hidden" min="1" value="{{$value->product_id}}"/>
+									<input name="cart_product_qty" type="number" min="1" value="1"/>
+                                    <input name="cart_product_name" type="hidden"  value="{{$value->product_name}}"/>
+                                    <input name="cart_product_id" type="hidden"  value="{{$value->product_id}}"/>
+                                    <input name="cart_product_image" type="hidden"  value="{{$value->product_image}}"/>
+                                    <input name="cart_product_price" type="hidden"  value="{{$value->product_price}}"/>
+                                    <input name="cart_product_product_detail" type="hidden"  value="true"/>
 									<button type="submit" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Thêm giỏ hàng

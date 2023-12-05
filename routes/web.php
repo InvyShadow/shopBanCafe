@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryProduct;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -52,12 +53,12 @@ Route::get('unactive-product/{product_id}', [ProductController::class, 'unactive
 Route::get('active-product/{product_id}', [ProductController::class, 'active_product']);
 Route::post('save-product', [ProductController::class, 'save_product']);
 //Cart
-Route::post('save-cart', [\App\Http\Controllers\CartController::class, 'save_cart']);
-Route::post('add-cart-ajax', [\App\Http\Controllers\CartController::class, 'add_cart_ajax']);
-Route::get('gio-hang', [\App\Http\Controllers\CartController::class, 'gio_hang']);
-Route::post('update-cart', [\App\Http\Controllers\CartController::class, 'update_cart']);
-Route::get('delete-product-cart/{session_id}', [\App\Http\Controllers\CartController::class, 'delete_product_cart']);
-Route::get('delete-all-product-cart', [\App\Http\Controllers\CartController::class, 'delete_all_product_cart']);
+Route::post('save-cart', [CartController::class, 'save_cart']);
+Route::post('add-cart-ajax', [CartController::class, 'add_cart_ajax']);
+Route::get('gio-hang', [CartController::class, 'gio_hang']);
+Route::post('update-cart', [CartController::class, 'update_cart']);
+Route::get('delete-product-cart/{session_id}', [CartController::class, 'delete_product_cart']);
+Route::get('delete-all-product-cart', [CartController::class, 'delete_all_product_cart']);
 
 //Checkout
 Route::get('login-checkout', [CheckoutController::class, 'login_checkout']);

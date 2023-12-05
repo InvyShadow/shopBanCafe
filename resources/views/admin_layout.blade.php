@@ -161,6 +161,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
 
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{asset('public/backend/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>

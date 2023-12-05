@@ -11,6 +11,8 @@ use Laravel\Socialite\Facades\Socialite;
 use function Laravel\Prompts\table;
 use Illuminate\Support\Facades\Redirect;
 use function PHPUnit\Framework\once;
+use App\Rules\Captcha;
+use Illuminate\Support\Facades\Validator;
 
 session_start();
 
@@ -54,13 +56,19 @@ class AdminController extends Controller
 //            return Redirect::to('/admin');
 //        }
 
-        $data = $request->all();
+//        $data = $request->all();
+
+        $data = $request->validate([
+            'admin_email' => 'required',
+            'admin_password' => 'required',
+            'g-recaptcha-response' => new Captcha(),
+        ]);
         $admin_email = $data['admin_email'];
         $admin_password = md5($data['admin_password']);
         $login = Login::where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
-        $login_count = $login->count();
+//        $login_count = $login->count();
 
-        if ($login_count) {
+        if ($login) {
             Session::put('admin_name', $login->admin_name);
             Session::put('admin_id', $login->admin_id);
             return Redirect::to('/dashboard');

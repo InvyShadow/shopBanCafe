@@ -482,6 +482,7 @@
 <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
 <script src="{{asset('public/frontend/js/main.js')}}"></script>
 <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0" nonce="S4RDsYbI"></script>
 <script type="text/javascript">
