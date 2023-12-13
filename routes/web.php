@@ -83,6 +83,8 @@ Route::get('delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon
 //Order
 Route::get('manage-order', [CheckoutController::class, 'manage_order']);
 Route::get('view-order/{order_id}', [CheckoutController::class, 'view_order']);
+Route::get('print-order/{order_id}', [CheckoutController::class, 'print_order']);
+
 
 //Send Mail
 Route::get('send-mail', [HomeController::class, 'send_mail']);

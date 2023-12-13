@@ -170,6 +170,7 @@
 
                     </tbody>
                 </table>
+                <a href="{{URL::to("/print-order/".$order_by_id[0]->order_id)}}">In đơn hàng</a>
             </div>
 
         </div>

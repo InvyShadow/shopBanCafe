@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use function Laravel\Prompts\table;
 use Illuminate\Support\Facades\Redirect;
 use function PHPUnit\Framework\once;
+use Barryvdh\DomPDF\PDF;
 
 session_start();
 
@@ -183,5 +184,130 @@ class CheckoutController extends Controller
 
 
         return view('admin_layout')->with('admin.view_order', $manage_order_by_id);
+    }
+
+    public function print_order($check_out_code) {
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->print_order_convert($check_out_code));
+        return $pdf->stream();
+    }
+
+    public function print_order_convert($check_out_code) {
+        $order_by_id = DB::table('tbl_order')
+            ->join('tbl_customer', 'tbl_order.customer_id', '=', 'tbl_customer.customer_id')
+            ->join('tbl_shipping', 'tbl_order.shipping_id', '=', 'tbl_shipping.shipping_id')
+            ->join('tbl_order_detail', 'tbl_order.order_id', '=', 'tbl_order_detail.order_id')
+            ->select('tbl_order.*', 'tbl_customer.*', 'tbl_shipping.*', 'tbl_order_detail.*')
+            ->where('tbl_order.order_id', $check_out_code)
+            ->get();
+        $output = '';
+
+        $output = '
+<style>
+body {
+font-family: Dejavu Sans;
+}
+.table-styling {
+border: 1px solid #333333;
+}
+.table-styling tbody tr td {
+    border: 1px solid #000000;
+}
+
+</style>
+<table class="table-styling">
+<thead>
+<tr>
+<th>Tên khách đặt hàng:</th>
+<th>Số điện thoại</th>
+<th>Email</th>
+</tr>
+</thead>
+<tbody>';
+
+        $output.= '
+
+<tr>
+<td>'.$order_by_id[0]->customer_name.'</td>
+<td>'.$order_by_id[0]->customer_phone.'</td>
+<td>'.$order_by_id[0]->customer_email.'</td>
+</tr>
+
+</tbody>
+</table>
+</br>
+<table class="table-styling">
+<thead>
+<tr>
+<th>Tên người nhận:</th>
+<th>Địa chỉ</th>
+<th>Số điện thoại</th>
+<th>Email</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>';
+
+        $output.= '
+
+<tr>
+<td>'.$order_by_id[0]->shipping_name.'</td>
+<td>'.$order_by_id[0]->shipping_address.'</td>
+<td>'.$order_by_id[0]->shipping_phone.'</td>
+<td>'.$order_by_id[0]->shipping_email.'</td>
+<td>'.$order_by_id[0]->shipping_note.'</td>
+
+</tr>
+
+</tbody>
+</table>
+</br>
+<table class="table-styling">
+<thead>
+<tr>
+<th>Tên sản phẩm</th>
+<th>Mã giảm giá</th>
+<th>Số lượng</th>
+<th>Giá sản phẩm</th>
+<th>Tổng tiền</th>
+</tr>
+</thead>
+<tbody>';
+foreach ($order_by_id as $key => $value) {
+
+
+
+        $output.= '
+
+<tr>
+<td>'.$value->product_name.'</td>
+<td>'.$value->coupon_code.'</td>
+<td>'.$value->product_sales_quantity.'</td>
+<td>'.$value->product_price.'</td>
+<td>'.$value->product_price*$value->product_sales_quantity.'</td>
+
+</tr>
+
+';
+}
+$output .= '<tr>
+<td colspan="1">
+<p>Thanh toán:'.$order_by_id[0]->order_total.'</p>
+</td>
+</tr>
+</tbody>
+</table>
+</br>
+<table>
+<thead>
+<tr>
+<th width="200px">Người lập phiếu</th>
+<th width="800px">Người nhận</th>
+</tr>
+</thead>
+</tbody>
+</table>';
+
+        return $output;
     }
 }
