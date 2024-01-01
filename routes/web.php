@@ -41,7 +41,7 @@ Route::get('unactive-category-product/{category_product_id}', [CategoryProduct::
 Route::get('active-category-product/{category_product_id}', [CategoryProduct::class, 'active_category_product']);
 Route::post('save-category-product', [CategoryProduct::class, 'save_category_product']);
 
-// Productf
+// Product
 
 Route::get('add-product', [ProductController::class, 'add_product']);
 Route::get('edit-product/{product_id}', [ProductController::class, 'edit_product']);
@@ -52,6 +52,9 @@ Route::get('all-product', [ProductController::class, 'all_product']);
 Route::get('unactive-product/{product_id}', [ProductController::class, 'unactive_product']);
 Route::get('active-product/{product_id}', [ProductController::class, 'active_product']);
 Route::post('save-product', [ProductController::class, 'save_product']);
+Route::post('/load-comment', [ProductController::class, 'load_comment']);
+Route::post('/send-comment', [ProductController::class, 'send_comment']);
+
 //Cart
 Route::post('save-cart', [CartController::class, 'save_cart']);
 Route::post('add-cart-ajax', [CartController::class, 'add_cart_ajax']);
@@ -59,6 +62,7 @@ Route::get('gio-hang', [CartController::class, 'gio_hang']);
 Route::post('update-cart', [CartController::class, 'update_cart']);
 Route::get('delete-product-cart/{session_id}', [CartController::class, 'delete_product_cart']);
 Route::get('delete-all-product-cart', [CartController::class, 'delete_all_product_cart']);
+
 
 //Checkout
 Route::get('login-checkout', [CheckoutController::class, 'login_checkout']);
@@ -97,7 +101,8 @@ Route::get('admin/callback', [AdminController::class, 'callback_facebook']);
 Route::get('login-google', [AdminController::class, 'login_google']);
 Route::get('google/callback', [AdminController::class, 'callback_google']);
 
-
+//Mail
+Route::get('send-coupon', [\App\Http\Controllers\MailController::class, 'send_coupon']);
 
 
 

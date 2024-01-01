@@ -497,6 +497,7 @@
             var cart_product_qty = $('.cart_product_qty_' + id).val();
             var _token = $('input[name="_token"]').val();
 
+
             let data = {
                 cart_product_id: cart_product_id,
                 cart_product_name: cart_product_name,
@@ -533,7 +534,7 @@
                         function () {
                             window.location.href = "{{url('gio-hang')}}";
                         });
-
+x
                 },
                 error: (e) => {
                     swal(e);
@@ -541,6 +542,58 @@
 
             });
         });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+    load_comment();
+        function load_comment() {
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url:'{{url('/load-comment')}}',
+                method: 'POST',
+                data: {
+                    product_id:product_id,
+                    _token:_token
+                },
+                success:function (data) {
+                    $('#comment_show').html(data);
+                },
+
+            });
+
+
+        }
+        $('.send-comment').click(function () {
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            var comment_name = $('.comment_name').val();
+            var comment_content = $('.comment_content').val();
+            $.ajax({
+                url:'{{url('/send-comment')}}',
+                method: 'POST',
+                data: {
+                    product_id:product_id,
+                    comment_name : comment_name,
+                    comment_content: comment_content,
+                    _token:_token
+                },
+                success:function (data) {
+
+                    $('#notify_comment').html('<span class="text text-success">Thêm bình luận thành công</span>')
+
+                    load_comment();
+                    $('#notify_comment').fadeOut(2000);
+                    $('.comment_name').val('');
+                    $('.comment_content').val('')
+                },
+
+            });
+        })
     });
 </script>
 

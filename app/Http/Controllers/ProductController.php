@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -142,6 +143,46 @@ class ProductController extends Controller
 
         return view('pages.product.show_detail')->with('category', $cate_product)->with('details_product', $details_product)
             ->with('related', $related_product);
+    }
+
+    public function load_comment(Request $req) {
+        $product_id = $req->product_id;
+        $comment = Comment::where('comment_product_id', $product_id)->get();
+        $output = "";
+        foreach ($comment as $key => $comm) {
+            $output .= '
+
+            <div class="row style_comment">
+                            <div class="col-md-2">
+                            <img width="80%" alt="" src="'.url('/public/frontend/images/batman-icon.png').'" class="img img-responsive img-thumbnail">
+                            </div>
+
+                            <div class="col-md-10">
+                                <p style="color: green">'.$comm->comment_name.'</p>
+                                <p style="color: black">'.$comm->comment_date.'</p>
+                            <p>
+                                '.$comm->comment.'
+                            </p>
+                            </div>
+                        </div>
+                        <p></p>
+
+          ';
+
+        }
+        echo $output;
+    }
+
+    public function send_comment(Request $request) {
+        $product_id = $request->product_id;
+        $comment_name = $request->comment_name;
+        $comment_content = $request->comment_content;
+
+        $comment = new Comment();
+        $comment->comment =  $comment_content;
+        $comment->comment_name = $comment_name;
+        $comment->comment_product_id = $product_id;
+        $comment->save();
     }
 
 }

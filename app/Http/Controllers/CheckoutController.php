@@ -186,13 +186,15 @@ class CheckoutController extends Controller
         return view('admin_layout')->with('admin.view_order', $manage_order_by_id);
     }
 
-    public function print_order($check_out_code) {
+    public function print_order($check_out_code)
+    {
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->print_order_convert($check_out_code));
         return $pdf->stream();
     }
 
-    public function print_order_convert($check_out_code) {
+    public function print_order_convert($check_out_code)
+    {
         $order_by_id = DB::table('tbl_order')
             ->join('tbl_customer', 'tbl_order.customer_id', '=', 'tbl_customer.customer_id')
             ->join('tbl_shipping', 'tbl_order.shipping_id', '=', 'tbl_shipping.shipping_id')
@@ -203,7 +205,7 @@ class CheckoutController extends Controller
         $output = '';
 
         $output = '
-<style>
+        <style>
 body {
 font-family: Dejavu Sans;
 }
@@ -225,12 +227,12 @@ border: 1px solid #333333;
 </thead>
 <tbody>';
 
-        $output.= '
+        $output .= '
 
 <tr>
-<td>'.$order_by_id[0]->customer_name.'</td>
-<td>'.$order_by_id[0]->customer_phone.'</td>
-<td>'.$order_by_id[0]->customer_email.'</td>
+<td>' . $order_by_id[0]->customer_name . '</td>
+<td>' . $order_by_id[0]->customer_phone . '</td>
+<td>' . $order_by_id[0]->customer_email . '</td>
 </tr>
 
 </tbody>
@@ -248,14 +250,14 @@ border: 1px solid #333333;
 </thead>
 <tbody>';
 
-        $output.= '
+        $output .= '
 
 <tr>
-<td>'.$order_by_id[0]->shipping_name.'</td>
-<td>'.$order_by_id[0]->shipping_address.'</td>
-<td>'.$order_by_id[0]->shipping_phone.'</td>
-<td>'.$order_by_id[0]->shipping_email.'</td>
-<td>'.$order_by_id[0]->shipping_note.'</td>
+<td>' . $order_by_id[0]->shipping_name . '</td>
+<td>' . $order_by_id[0]->shipping_address . '</td>
+<td>' . $order_by_id[0]->shipping_phone . '</td>
+<td>' . $order_by_id[0]->shipping_email . '</td>
+<td>' . $order_by_id[0]->shipping_note . '</td>
 
 </tr>
 
@@ -273,26 +275,25 @@ border: 1px solid #333333;
 </tr>
 </thead>
 <tbody>';
-foreach ($order_by_id as $key => $value) {
+        foreach ($order_by_id as $key => $value) {
 
 
-
-        $output.= '
+            $output .= '
 
 <tr>
-<td>'.$value->product_name.'</td>
-<td>'.$value->coupon_code.'</td>
-<td>'.$value->product_sales_quantity.'</td>
-<td>'.$value->product_price.'</td>
-<td>'.$value->product_price*$value->product_sales_quantity.'</td>
+<td>' . $value->product_name . '</td>
+<td>' . $value->coupon_code . '</td>
+<td>' . $value->product_sales_quantity . '</td>
+<td>' . $value->product_price . '</td>
+<td>' . $value->product_price * $value->product_sales_quantity . '</td>
 
 </tr>
 
 ';
-}
-$output .= '<tr>
+        }
+        $output .= '<tr>
 <td colspan="1">
-<p>Thanh toán:'.$order_by_id[0]->order_total.'</p>
+<p>Thanh toán:' . $order_by_id[0]->order_total . '</p>
 </td>
 </tr>
 </tbody>

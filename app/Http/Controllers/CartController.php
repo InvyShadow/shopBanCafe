@@ -70,9 +70,9 @@ class CartController extends Controller
         Session::put('cart', $cart);
         Session::save();
 
-//        if($data['cart_product_product_detail'=="true"]) {
-//            return \redirect("/gio-hang");
-//        }
+
+            return \redirect("/gio-hang");
+
     }
 
     public function gio_hang(Request $request)
