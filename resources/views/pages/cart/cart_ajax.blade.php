@@ -1,6 +1,5 @@
 @extends('welcome');
-@section('content')
-    ;
+@section('content');
     <section id="cart_items">
         <div class="container container-max" style="max-width: 100%">
             <div class="breadcrumbs">
@@ -96,6 +95,7 @@
                                         {{--                                        <li>Thuế <span></span></li>--}}
                                         {{--                                        <li>Phí vận chuyển <span></span></li>--}}
                                         <li>
+
                                             @if(Session::get('coupon'))
                                                 @foreach(Session::get('coupon') as $key => $coupon)
                                                     @if($coupon['coupon_condition'] == 1 )
@@ -104,11 +104,13 @@
                                                                 <?php
                                                                 $total_coupon = ($total * $coupon['coupon_number']) / 100;
                                                                 echo '<p> Tổng giảm: ' . number_format($total_coupon, 0, ',', '.') . 'đ</p>';
+                                                                
+                                                                $total = $total - $total_coupon;
                                                                 ?>
 
                                                         </p>
                                         <li><p>Tiền sau khi
-                                                giảm: {{number_format($total - $total_coupon, 0 , ',' , '.')}}</p></li>
+                                                giảm: {{number_format($total, 0 , ',' , '.')}}</p></li>
                                         @else
                                             Mã giảm: {{number_format($coupon['coupon_number'],0,',','.')}}đ
                                             <p>
@@ -122,12 +124,14 @@
                                                     giảm: {{number_format($total_coupon, 0 , ',' , '.')}}</p></li>
                                                 <?php
                                                 Session::put('total', $total_coupon);
-                                                $total = $total_coupon
+                                                $total = $total_coupon;
                                                 ?>
 
                                         @endif
                                         @endforeach
-
+                                            <?php
+                                            Session::put('total', $total);
+                                            ?>
                                         @endif
 
                                         <span></span></li>
@@ -136,9 +140,7 @@
                                 </td>
 
                             </tr>
-                                <?php
-                                Session::put('total', $total);
-                                ?>
+
 
                         @endif
 

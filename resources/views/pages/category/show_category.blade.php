@@ -15,7 +15,7 @@
                             <img src="{{URL::to('public/uploads/product/'.$pro->product_image)}}" alt="" />
                             <h2>{{number_format($pro->product_price).' VNĐ'}}</h2>
                             <p>{{$pro->product_name}}</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                         </div>
 
                     </div>

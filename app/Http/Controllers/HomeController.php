@@ -20,7 +20,7 @@ class HomeController extends Controller
         $url_canonical = $request->url();
 //        End SEO
         $cate_product = DB::table('tbt_category_product',)->orderBy('category_id', 'desc')->get();
-        $all_product = DB::table('tbl_product')->where('product_status', '0')->orderBy('product_id', 'desc')->limit(4)->get();
+        $all_product = DB::table('tbl_product')->where('product_status', '1')->orderBy('product_id', 'desc')->limit(6)->get();
         return view('pages.home')->with('category', $cate_product)->with('all_product', $all_product)
             ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)->with('url_canonical', $url_canonical);
     }
@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $keyword = $request->keywords_submit;
         $cate_product = DB::table('tbt_category_product',)->orderBy('category_id', 'desc')->get();
-        $search_product = DB::table('tbl_product')->where('product_name', 'like', '%' .$keyword .'%')->where('product_status', 0)->get();
+        $search_product = DB::table('tbl_product')->where('product_name', 'like', '%' .$keyword .'%')->where('product_status', 1)->get();
         return view('pages.product.search')->with('category', $cate_product)->with('search_product', $search_product);
     }
 
